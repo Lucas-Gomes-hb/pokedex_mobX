@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_list/features/data/models/pokemon_model.dart';
 import 'package:pokemon_list/features/presentation/pages/pokemon_detail_page.dart';
+import 'package:pokemon_list/features/presentation/widgets/pokemon_pixel_painter.dart';
 
 class PokemonCard extends StatelessWidget {
   final PokemonModel pokemon;
@@ -29,29 +30,20 @@ class PokemonCard extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.centerLeft,
                 children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFC0B088),
-                    ),
+                  CustomPaint(
+                    size: const Size(200, 200),
+                    painter: PixelCirclePainter(),
                   ),
-
-                  Positioned(
-                    left: MediaQueryData().size.width/4,
-                    child: Hero(
-                      tag: 'pokemon-${pokemon.id}',
-                      child: CachedNetworkImage(
-                        imageUrl: pokemon.imageUrl,
-                        height: 200,
-                        width: 200,
-                        fit: BoxFit.fill,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
+                  ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: pokemon.imageUrl,
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
                 ],
@@ -63,12 +55,8 @@ class PokemonCard extends StatelessWidget {
               child: Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: Color(0xFFC0B088),
-                    width: 2
-                  )
-                ),
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(color: Color(0xFFC0B088), width: 2)),
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
