@@ -12,6 +12,9 @@ class PokemonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -21,24 +24,51 @@ class PokemonCard extends StatelessWidget {
             ),
           );
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CachedNetworkImage(
-              imageUrl: pokemon.imageUrl,
-              height: 100,
-              width: 100,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.white,
+                Colors.grey.shade200,
+              ],
             ),
-            SizedBox(height: 8),
-            Text(
-              pokemon.name.toUpperCase(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: 'pokemon-${pokemon.id}',
+                child: CachedNetworkImage(
+                  imageUrl: pokemon.imageUrl,
+                  height: 100,
+                  width: 100,
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                '#${pokemon.id.toString().padLeft(3, '0')}',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 11,
+                  fontFamily: "PixelFont",
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                pokemon.name.toUpperCase(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

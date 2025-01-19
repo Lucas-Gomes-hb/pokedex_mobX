@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokemon_list/features/presentation/stores/pokemon_detail_store.dart';
+import 'package:pokemon_list/features/presentation/widgets/pokemon_detail_info.dart';
 
 class PokemonDetailPage extends StatefulWidget {
   final int id;
@@ -58,60 +58,9 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
 
           return SingleChildScrollView(
             padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: pokemon.imageUrl,
-                  height: 200,
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-                SizedBox(height: 24),
-                _buildInfoCard('Informações Básicas', [
-                  'Número: #${pokemon.id.toString().padLeft(3, '0')}',
-                  'Altura: ${(pokemon.height / 10).toStringAsFixed(1)}m',
-                  'Peso: ${(pokemon.weight / 10).toStringAsFixed(1)}kg',
-                ]),
-                SizedBox(height: 16),
-                _buildInfoCard('Tipos', 
-                  pokemon.types.map((type) => type.toUpperCase()).toList(),
-                ),
-                SizedBox(height: 16),
-                _buildInfoCard('Habilidades',
-                  pokemon.abilities.map((ability) => 
-                    ability.replaceAll('-', ' ').toUpperCase()
-                  ).toList(),
-                ),
-              ],
-            ),
+            child: PokemonDetailInfo(pokemon: pokemon,)
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildInfoCard(String title, List<String> items) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            ...items.map((item) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Text(item),
-            )),
-          ],
-        ),
       ),
     );
   }

@@ -16,7 +16,7 @@ void setupDependencies() {
   final dio = Dio()
     ..options.connectTimeout = const Duration(seconds: 5)
     ..options.receiveTimeout = const Duration(seconds: 3);
-    
+
   GetIt.I.registerLazySingleton(() => dio);
   GetIt.I.registerLazySingleton(() => PokemonService(GetIt.I()));
   GetIt.I.registerLazySingleton(() => PokemonRepository(GetIt.I()));
@@ -34,6 +34,39 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
         useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontFamily: "PixelFont",
+            fontSize: 18
+          ),
+          backgroundColor: Color(0xFFFF4500),
+          iconTheme: IconThemeData(
+            color: Colors.white
+          )
+        ),
+        scaffoldBackgroundColor: Color(0xFFF5F5DC),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          color:Color(0xFFFF4500), 
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontFamily: 'PixelFont'),
+          displayMedium: TextStyle(fontFamily: 'PixelFont'),
+          displaySmall: TextStyle(fontFamily: 'PixelFont'),
+          headlineLarge: TextStyle(fontFamily: 'PixelFont'),
+          headlineMedium: TextStyle(fontFamily: 'PixelFont'),
+          headlineSmall: TextStyle(fontFamily: 'PixelFont'),
+          titleLarge: TextStyle(fontFamily: 'PixelFont'),
+          titleMedium: TextStyle(fontFamily: 'PixelFont'),
+          titleSmall: TextStyle(fontFamily: 'PixelFont'),
+          bodyLarge: TextStyle(fontFamily: 'PixelFont'),
+          bodyMedium: TextStyle(fontFamily: 'PixelFont'),
+          bodySmall: TextStyle(fontFamily: 'PixelFont'),
+          labelLarge: TextStyle(fontFamily: 'PixelFont'),
+          labelMedium: TextStyle(fontFamily: 'PixelFont'),
+          labelSmall: TextStyle(fontFamily: 'PixelFont'),
+        ),
       ),
       home: PokemonListPage(),
     );

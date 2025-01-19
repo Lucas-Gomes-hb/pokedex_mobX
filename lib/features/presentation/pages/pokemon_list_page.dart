@@ -23,6 +23,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pokédex'),
+        centerTitle: true,
       ),
       body: Observer(
         builder: (_) {
@@ -45,19 +46,21 @@ class _PokemonListPageState extends State<PokemonListPage> {
             );
           }
 
-          return GridView.builder(
-            padding: EdgeInsets.all(8),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+          return Scaffold(
+            body: GridView.builder(
+              padding: EdgeInsets.all(8),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              itemCount: store.pokemons.length,
+              itemBuilder: (context, index) {
+                final pokemon = store.pokemons[index];
+                return PokemonCard(pokemon: pokemon);
+              },
             ),
-            itemCount: store.pokemons.length,
-            itemBuilder: (context, index) {
-              final pokemon = store.pokemons[index];
-              return PokemonCard(pokemon: pokemon);
-            },
           );
         },
       ),
