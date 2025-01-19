@@ -28,8 +28,15 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
       appBar: AppBar(
         title: Observer(
           builder: (_) => Text(
-            store.pokemon?.name.toUpperCase() ?? 'Detalhes do Pokémon',
+            store.pokemon?.name.toUpperCase() ?? 'Pokémon',
           ),
+        ),
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+            store.resetStore();
+          },
+          child: Icon(Icons.arrow_back,),
         ),
       ),
       body: Observer(

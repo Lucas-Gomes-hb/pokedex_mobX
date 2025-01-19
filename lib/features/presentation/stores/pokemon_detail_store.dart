@@ -33,4 +33,9 @@ abstract class _PokemonDetailStore with Store {
       isLoading = false;
     }
   }
+
+  @action
+  void resetStore() {
+    pokemon = null;
+  }
 }

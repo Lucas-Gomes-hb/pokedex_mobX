@@ -50,6 +50,11 @@ class MyApp extends StatelessWidget {
         progressIndicatorTheme: ProgressIndicatorThemeData(
           color:Color(0xFFFF4500), 
         ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFFFF4500),
+          shape: CircleBorder(),
+          iconSize: 30,
+        ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontFamily: 'PixelFont'),
           displayMedium: TextStyle(fontFamily: 'PixelFont'),

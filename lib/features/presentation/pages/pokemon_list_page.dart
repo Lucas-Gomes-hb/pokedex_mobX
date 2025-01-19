@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokemon_list/features/presentation/stores/pokemon_list_store.dart';
 import 'package:pokemon_list/features/presentation/widgets/pokemon_card.dart';
+import 'package:pokemon_list/features/presentation/widgets/pokemon_search_sheet.dart';
 
 class PokemonListPage extends StatefulWidget {
   @override
@@ -47,11 +48,26 @@ class _PokemonListPageState extends State<PokemonListPage> {
           }
 
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) =>
+                      SearchBottomSheet(pokemons: store.pokemons),
+                );
+              },
+              child: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+            ),
             body: GridView.builder(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.only(top: 8, left: 8),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1,
+                crossAxisCount: 1,
+                childAspectRatio: 2,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
               ),
